@@ -1,0 +1,363 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Maria's Pasteles & Coquito — Bringing the taste of Puerto Rico to your home</title>
+<meta name="description" content="Handmade Puerto Rican pasteles, alcapurrias and coquito by the dozen. Order fresh, any time of year.">
+<link rel="icon" href="assets/star.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --lav:#c5bcff; --lav-ink:#c494ff; --plum:#340a3d; --plum-2:#4a1655;
+  --brown:#66250e; --rust:#8f2600; --cream:#fff3e9; --paper:#faf2e8; --butter:#f8eabc;
+  --r:28px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:Archivo,system-ui,sans-serif;background:var(--paper);color:var(--brown);-webkit-font-smoothing:antialiased;line-height:1.5}
+img{display:block;max-width:100%}
+a{color:inherit}
+.wrap{width:min(1180px,100% - 48px);margin-inline:auto}
+.display{font-stretch:125%;font-weight:800;letter-spacing:-.01em;line-height:.95;text-transform:uppercase}
+.eyebrow{font-stretch:110%;font-weight:700;font-size:13px;letter-spacing:.14em;text-transform:uppercase;display:inline-flex;align-items:center;gap:10px}
+.eyebrow img{width:18px}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:16px 26px;border-radius:999px;font:700 16px/1 Archivo;font-stretch:110%;text-decoration:none;border:2px solid transparent;cursor:pointer;transition:transform .2s ease,background .2s ease,color .2s ease}
+.btn:hover{transform:translateY(-2px)}
+.btn-lav{background:var(--lav-ink);color:var(--plum)}
+.btn-lav:hover{background:var(--lav)}
+.btn-ghost{border-color:currentColor;color:var(--cream);background:transparent}
+.btn-plum{background:var(--plum);color:var(--cream)}
+.btn-plum:hover{background:var(--plum-2)}
+
+/* nav */
+header{position:absolute;top:0;left:0;right:0;z-index:20;background:none}
+nav{display:flex;align-items:center;justify-content:space-between;height:106px;margin-top:24px}
+nav .logo img{height:64px;width:auto}
+nav ul{display:flex;gap:32px;list-style:none;align-items:center}
+nav ul a{color:var(--cream);text-decoration:none;font-weight:600;font-stretch:110%;font-size:15px;opacity:.85}
+nav ul a:hover{opacity:1}
+nav .btn{padding:12px 20px;font-size:14px;background:#f8eabc;color:var(--plum);opacity:1}
+nav .btn:hover{background:#f3dfa0}
+
+/* hero */
+.hero{background:var(--plum);color:var(--cream);position:relative;overflow:hidden;padding:202px 0 120px}
+.hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center}
+.hero h1{font-size:clamp(40px,5.2vw,72px);color:var(--lav-ink);margin:20px 0 24px}
+.hero h1 span{color:var(--cream)}
+.hero p.lede{font-size:20px;max-width:470px;opacity:.9;margin-bottom:36px}
+.hero .ctas{display:flex;gap:14px;flex-wrap:wrap}
+.hero .eyebrow{color:var(--butter)}
+.hero-art{position:relative;aspect-ratio:1/1.05}
+.hero-art img{position:absolute;filter:drop-shadow(0 18px 30px rgba(0,0,0,.25))}
+.hero-art .a1{width:62%;left:18%;top:6%;animation:bob 6s ease-in-out infinite}
+.hero-art .a2{width:28%;right:-2%;top:2%;transform:rotate(10deg);animation:bob 5s ease-in-out -1s infinite}
+.hero-art .a3{width:40%;left:-4%;bottom:0;transform:rotate(-8deg);animation:bob 7s ease-in-out -2s infinite}
+.hero-art .a4{width:12%;right:12%;bottom:22%;animation:spin 14s linear infinite}
+.hero-art .a5{width:9%;left:8%;top:8%;animation:spin 18s linear infinite reverse}
+@keyframes bob{50%{translate:0 -12px}}
+@keyframes spin{to{rotate:360deg}}
+
+/* marquee */
+.marquee{background:var(--lav);color:var(--plum);overflow:hidden;border-block:2px solid var(--plum)}
+.marquee div{display:flex;gap:40px;padding:16px 0;width:max-content;animation:slide 30s linear infinite}
+.marquee span{font-stretch:125%;font-weight:800;font-size:22px;text-transform:uppercase;display:flex;align-items:center;gap:40px;white-space:nowrap}
+.marquee img{width:26px}
+@keyframes slide{to{transform:translateX(-50%)}}
+
+/* sections */
+section{padding:110px 0}
+.sec-head{display:flex;justify-content:space-between;align-items:end;gap:24px;margin-bottom:48px;flex-wrap:wrap}
+.sec-head h2{font-size:clamp(40px,5.2vw,72px);color:var(--plum)}
+.sec-head p{max-width:380px;font-size:17px}
+.sec-head{display:block}
+.btn .arr{width:16px;height:16px;flex:none;transition:transform .2s ease}
+.btn:hover .arr{transform:translateX(3px)}
+.sec-head p{max-width:none;margin-top:16px}
+
+/* menu */
+.menu-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.card{background:var(--cream);border:2px solid var(--brown);border-radius:var(--r);padding:28px;display:flex;flex-direction:column;position:relative;transition:transform .25s ease,box-shadow .25s ease}
+.card:hover{transform:translateY(-4px);box-shadow:8px 8px 0 var(--brown)}
+.card .art{height:180px;display:grid;place-items:center;margin-bottom:20px;background:var(--lav);border-radius:20px}
+.card .art img{max-height:150px;width:auto}
+.card h3{font-stretch:125%;font-weight:800;font-size:28px;text-transform:uppercase;color:var(--plum);line-height:1}
+.card .sub{font-size:14px;margin:8px 0 20px;opacity:.85}
+.items{list-style:none;border-top:2px dashed rgba(102,37,14,.35);margin-top:auto}
+.items li{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:14px 0;border-bottom:2px dashed rgba(102,37,14,.35)}
+.items b{font-weight:700;color:var(--plum)}
+.items small{display:block;font-size:13px;opacity:.8}
+.items .price{font-stretch:125%;font-weight:800;font-size:24px;color:var(--rust)}
+.note{margin-top:28px;font-size:14px;text-align:center;opacity:.8}
+
+/* order */
+.order{background:var(--lav);position:relative;overflow:hidden}
+.order .sec-head h2{color:var(--plum)}
+#menu .sec-head,.order .sec-head{text-align:center}
+.order-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:28px;align-items:start}
+.builder{background:var(--cream);border:2px solid var(--plum);border-radius:var(--r);overflow:hidden}
+.row{display:grid;grid-template-columns:1fr auto auto;gap:16px;align-items:center;padding:18px 24px;border-bottom:2px dashed rgba(52,10,61,.2)}
+.row:last-child{border-bottom:0}
+.row .nm b{color:var(--plum);display:block}
+.row .nm small{opacity:.8}
+.row select{appearance:none;-webkit-appearance:none;font:600 14px/1 Archivo;color:var(--plum);background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5l5 5 5-5' fill='none' stroke='%23340a3d' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat right 14px center/11px 8px;border:2px solid var(--plum);border-radius:999px;padding:11px 38px 11px 18px;min-width:116px;cursor:pointer}
+.row select:focus-visible{outline:2px solid var(--plum);outline-offset:2px}
+.step{display:flex;align-items:center;border:2px solid var(--plum);border-radius:999px;overflow:hidden;background:#fff}
+.step button{width:38px;height:38px;border:0;background:transparent;font:700 20px Archivo;color:var(--plum);cursor:pointer}
+.step button:hover{background:var(--lav)}
+.step output{min-width:28px;text-align:center;font-weight:700;color:var(--plum)}
+.summary{background:var(--plum);color:var(--cream);border-radius:var(--r);padding:32px;position:sticky;top:100px}
+.summary h3{font-stretch:125%;font-weight:800;text-transform:uppercase;font-size:24px;color:var(--lav-ink);margin-bottom:16px}
+.summary ul{list-style:none;min-height:60px;margin-bottom:20px}
+.summary li{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(255,243,233,.15);font-size:15px}
+.summary .empty{opacity:.6;font-size:15px}
+.total{display:flex;justify-content:space-between;align-items:baseline;margin:8px 0 24px}
+.total strong{font-stretch:125%;font-weight:800;font-size:40px;color:var(--butter)}
+.summary label{display:block;font-size:13px;font-weight:600;margin:12px 0 6px;opacity:.85}
+.summary input{width:100%;padding:12px 14px;border-radius:12px;border:0;font:15px Archivo;background:var(--cream);color:var(--plum)}
+.summary .btn{width:100%;justify-content:center;margin-top:20px}
+.summary .fine{font-size:12px;opacity:.7;margin-top:12px;text-align:center}
+.order .deco{position:absolute;width:170px;right:3%;top:60px;rotate:12deg}
+
+/* story */
+.story-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:64px;align-items:center}
+.story-art{background:var(--plum);border-radius:var(--r);aspect-ratio:1;position:relative;display:grid;place-items:center}
+.story-art .main{width:56%}
+.story-art .s{position:absolute;width:13%}
+.story-art .s1{top:10%;left:10%}.story-art .s2{bottom:12%;right:10%}
+.story h2{font-size:clamp(40px,5.2vw,72px);color:var(--plum);margin:18px 0 24px}
+.story p{font-size:18px;margin-bottom:16px;max-width:560px}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:32px}
+.steps div{border:2px solid var(--brown);border-radius:20px;padding:18px;background:var(--cream)}
+.steps b{font-stretch:125%;font-weight:800;font-size:28px;color:var(--rust);display:block}
+
+/* footer */
+footer{background:var(--plum);color:var(--cream);padding:80px 0 36px;position:relative;overflow:hidden}
+.foot{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:40px}
+.foot .brand{display:table;width:1px}
+.foot .brand p{white-space:nowrap}
+.foot .logo{display:block;width:100%;margin-bottom:20px}
+.foot h4{font-stretch:125%;font-weight:800;text-transform:uppercase;color:var(--lav-ink);margin-bottom:12px;font-size:15px;letter-spacing:.04em}
+.foot p,.foot a{opacity:.85;font-size:15px;text-decoration:none;display:block;margin-bottom:6px}
+.foot-big{font-stretch:125%;font-weight:800;font-size:clamp(28px,3.6vw,48px);line-height:.9;color:#f8eabc;text-transform:uppercase;margin-top:48px;opacity:.95;text-align:center}
+.copy{display:flex;justify-content:space-between;margin-top:28px;font-size:13px;opacity:.6;flex-wrap:wrap;gap:8px}
+footer .spill{position:absolute;right:4%;bottom:90px;width:150px;rotate:-6deg}
+
+/* reveal */
+.rv{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.2,1)}
+.rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
+
+@media (max-width:900px){
+  nav ul li:not(:last-child){display:none}
+  .hero-grid,.order-grid,.story-grid,.foot,.menu-grid,.steps{grid-template-columns:minmax(0,1fr)}
+  .hero-grid>*,.order-grid>*,.story-grid>*,.menu-grid>*{min-width:0}
+  .hero h1,.sec-head h2,.story h2{font-size:clamp(30px,8.5vw,56px)}
+  .hero{padding-top:162px;overflow:hidden}
+  img{max-width:100%}
+  .hero-art{max-width:440px;margin-inline:auto;width:100%}
+  .menu-grid{grid-template-columns:1fr}
+  .summary{position:static}
+  .order .deco,footer .spill{display:none}
+  .row{grid-template-columns:1fr auto;}
+  .row>:first-child{grid-column:1/-1}
+  .row select{justify-self:start}
+  .row .step{grid-column:2;justify-self:end}
+  .steps{grid-template-columns:1fr}
+  section{padding:80px 0}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="wrap">
+    <a class="logo" href="#top" aria-label="Maria's Pasteles & Coquito home"><img src="assets/logo-beige.png" alt="Maria's — Pasteles ✱ Coquito"></a>
+    <ul>
+      <li><a href="#menu">Menu</a></li>
+      <li><a href="#story">Our story</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a class="btn btn-lav" href="#order">Order now</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <span class="eyebrow"><img src="assets/star.png" alt="">Orders now open</span>
+        <h1 class="display">Bringing the taste of <span>Puerto Rico</span> to your home</h1>
+        <p class="lede">Handmade pasteles, crispy alcapurrias and creamy coquito, made by the dozen with Maria's family recipes.</p>
+        <div class="ctas">
+          <a class="btn btn-lav" href="#order">Build your order <svg class="arr" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          <a class="btn btn-ghost" href="#menu">See the menu</a>
+        </div>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <img class="a1" src="assets/eating.png" alt="">
+        <img class="a2" src="assets/bottle.png" alt="">
+        <img class="a3" src="assets/pastel.png" alt="">
+        <img class="a4" src="assets/star.png" alt="">
+        <img class="a5" src="assets/star.png" alt="">
+      </div>
+    </div>
+  </section>
+
+  <div class="marquee" aria-hidden="true">
+    <div>
+      <span>Pasteles <img src="assets/star.png" alt=""> Alcapurrias <img src="assets/star.png" alt=""> Coquito <img src="assets/star.png" alt=""> Made by the dozen <img src="assets/star.png" alt=""> Hecho con amor <img src="assets/star.png" alt=""></span>
+      <span>Pasteles <img src="assets/star.png" alt=""> Alcapurrias <img src="assets/star.png" alt=""> Coquito <img src="assets/star.png" alt=""> Made by the dozen <img src="assets/star.png" alt=""> Hecho con amor <img src="assets/star.png" alt=""></span>
+    </div>
+  </div>
+
+  <section id="menu">
+    <div class="wrap">
+      <div class="sec-head rv">
+        <h2 class="display">The menu</h2>
+        <p>Everything is made fresh to order. Pasteles and alcapurrias are sold by the dozen, and coquito comes in two bottle sizes.</p>
+      </div>
+      <div class="menu-grid">
+        <article class="card rv">
+          <h3>Pasteles</h3>
+          <p class="sub">Per dozen · chicken or pork</p>
+          <ul class="items">
+            <li><span><b>Guineo</b><small>Green banana masa</small></span><span class="price">$40</span></li>
+            <li><span><b>Yuca</b><small>Cassava masa</small></span><span class="price">$45</span></li>
+          </ul>
+        </article>
+        <article class="card rv">
+          <h3>Alcapurrias</h3>
+          <p class="sub">Per dozen · chicken, pork or beef</p>
+          <ul class="items">
+            <li><span><b>Classic</b><small>Guineo &amp; yautía fritter</small></span><span class="price">$30</span></li>
+            <li><span><b>Yuca</b><small>Cassava fritter</small></span><span class="price">$35</span></li>
+          </ul>
+        </article>
+        <article class="card rv">
+          <h3>Coquito</h3>
+          <p class="sub">Puerto Rican coconut eggnog</p>
+          <ul class="items">
+            <li><span><b>Big bottle</b><small>1.5 L</small></span><span class="price">$60</span></li>
+            <li><span><b>Small bottle</b><small>Perfect for gifting</small></span><span class="price">$20</span></li>
+          </ul>
+        </article>
+      </div>
+      <p class="note">Made in small batches. Order ahead to reserve your dozen.</p>
+    </div>
+  </section>
+
+  <section id="order" class="order">
+    <img class="deco" src="assets/cups-stack.png" alt="" aria-hidden="true">
+    <div class="wrap">
+      <div class="sec-head rv">
+        <h2 class="display">Build your order</h2>
+        <p>Pick what you'd like and send it to Maria. She'll confirm your pickup time and payment.</p>
+      </div>
+      <div class="order-grid">
+        <div class="builder rv" id="builder"></div>
+        <aside class="summary rv" aria-live="polite">
+          <h3>Your order</h3>
+          <ul id="lines"><li class="empty">Nothing yet. Add a dozen or two!</li></ul>
+          <div class="total"><span>Total</span><strong id="total">$0</strong></div>
+          <form id="send">
+            <label for="nm">Your name</label>
+            <input id="nm" required autocomplete="name" placeholder="Name">
+            <label for="ph">Phone</label>
+            <input id="ph" required type="tel" autocomplete="tel" placeholder="(555) 555-5555">
+            <label for="dt">Preferred pickup date</label>
+            <input id="dt" type="date">
+            <button class="btn btn-lav" type="submit">Send order to Maria <svg class="arr" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          </form>
+          <p class="fine">Opens a text message with your order. Nothing is charged online.</p>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <section id="story" class="story">
+    <div class="wrap story-grid">
+      <div class="story-art rv" aria-hidden="true">
+        <img class="main" src="assets/bowl-person.png" alt="">
+        <img class="s s1" src="assets/star.png" alt="">
+        <img class="s s2" src="assets/star.png" alt="">
+      </div>
+      <div class="rv">
+        <span class="eyebrow"><img src="assets/star.png" alt="">Our story</span>
+        <h2 class="display">Made the way abuela taught us</h2>
+        <p>Every family gathering in Puerto Rico starts in the kitchen: grating guineo, seasoning the meat, and wrapping pasteles in banana leaves with the whole family.</p>
+        <p>Maria's brings that tradition to your table, one dozen at a time, so you can spend less time cooking and more time celebrating.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer id="contact">
+  <div class="wrap">
+    <div class="foot">
+      <div class="brand">
+        <img class="logo" src="assets/logo-beige.png" alt="Maria's — Pasteles ✱ Coquito">
+        <p>Bringing the taste of Puerto Rico to your home.</p>
+      </div>
+      <div>
+        <h4>Order</h4>
+        <a href="sms:+15555555555" data-phone>Text (555) 555-5555</a>
+        <a href="mailto:hello@mariaspasteles.com">hello@mariaspasteles.com</a>
+      </div>
+      <div>
+        <h4>Pickup</h4>
+        <p>Local pickup by appointment</p>
+        <p>Orders year-round</p>
+      </div>
+    </div>
+    <div class="foot-big big display" aria-hidden="true" style="font-stretch:125%">¡Buen provecho!</div>
+    <div class="copy"><span>© <span id="yr"></span> Maria's Pasteles &amp; Coquito</span><span>Made with love &amp; sofrito</span></div>
+  </div>
+</footer>
+
+<script>
+const PHONE = '+15555555555';
+const MENU = [
+  {id:'pg', name:'Pasteles · Guineo', note:'per dozen', price:40, opts:['Chicken','Pork']},
+  {id:'py', name:'Pasteles · Yuca', note:'per dozen', price:45, opts:['Chicken','Pork']},
+  {id:'ac', name:'Alcapurrias', note:'per dozen', price:30, opts:['Chicken','Pork','Beef']},
+  {id:'ay', name:'Yuca Alcapurrias', note:'per dozen', price:35, opts:['Chicken','Pork','Beef']},
+  {id:'cb', name:'Coquito · Big (1.5 L)', note:'bottle', price:60},
+  {id:'cs', name:'Coquito · Small', note:'bottle', price:20},
+];
+const qty = {}, fill = {};
+const b = document.getElementById('builder');
+b.innerHTML = MENU.map(m => `
+  <div class="row">
+    <div class="nm"><b>${m.name}</b><small>$${m.price} ${m.note}</small></div>
+    ${m.opts ? `<select data-id="${m.id}" aria-label="Filling for ${m.name}">${m.opts.map(o=>`<option>${o}</option>`).join('')}</select>` : '<span></span>'}
+    <div class="step"><button type="button" data-id="${m.id}" data-d="-1" aria-label="Remove one">−</button><output id="q-${m.id}">0</output><button type="button" data-id="${m.id}" data-d="1" aria-label="Add one">+</button></div>
+  </div>`).join('');
+MENU.forEach(m => { qty[m.id] = 0; fill[m.id] = m.opts ? m.opts[0] : ''; });
+b.addEventListener('click', e => {
+  const t = e.target.closest('button[data-d]'); if (!t) return;
+  qty[t.dataset.id] = Math.max(0, qty[t.dataset.id] + +t.dataset.d); render();
+});
+b.addEventListener('change', e => { if (e.target.matches('select')) { fill[e.target.dataset.id] = e.target.value; render(); } });
+function lines(){ return MENU.filter(m => qty[m.id]).map(m => ({ txt:`${qty[m.id]} × ${m.name}${fill[m.id] ? ' (' + fill[m.id] + ')' : ''}`, amt: qty[m.id]*m.price })); }
+function render(){
+  MENU.forEach(m => document.getElementById('q-'+m.id).textContent = qty[m.id]);
+  const L = lines(), ul = document.getElementById('lines');
+  ul.innerHTML = L.length ? L.map(l => `<li><span>${l.txt}</span><span>$${l.amt}</span></li>`).join('') : '<li class="empty">Nothing yet. Add a dozen or two!</li>';
+  document.getElementById('total').textContent = '$' + L.reduce((s,l) => s + l.amt, 0);
+}
+document.getElementById('send').addEventListener('submit', e => {
+  e.preventDefault();
+  const L = lines(); if (!L.length) { alert('Add at least one item to your order.'); return; }
+  const total = L.reduce((s,l) => s + l.amt, 0);
+  const msg = `Hi Maria! New order from ${nm.value} (${ph.value}):\n` + L.map(l => '• ' + l.txt).join('\n') + `\nTotal: $${total}` + (dt.value ? `\nPickup: ${dt.value}` : '');
+  location.href = `sms:${PHONE}?&body=${encodeURIComponent(msg)}`;
+});
+document.getElementById('yr').textContent = new Date().getFullYear();
+const io = new IntersectionObserver(es => es.forEach(x => { if (x.isIntersecting) { x.target.classList.add('in'); io.unobserve(x.target); } }), {threshold:.15});
+document.querySelectorAll('.rv').forEach((el,i) => { el.style.transitionDelay = (i%3)*80 + 'ms'; io.observe(el); });
+</script>
+</body>
+</html>
