@@ -100,6 +100,11 @@ section{padding:110px 0}
 .builder{background:var(--cream);border:2px solid var(--plum);border-radius:var(--r);overflow:hidden}
 .row{display:grid;grid-template-columns:1fr auto auto;gap:16px;align-items:center;padding:18px 24px;border-bottom:2px dashed rgba(52,10,61,.2)}
 .row:last-child{border-bottom:0}
+.custom{display:block;padding:18px 24px 22px}
+.custom label{display:block;color:var(--plum);font-weight:700}
+.custom small{display:block;opacity:.8;margin-bottom:10px}
+.custom textarea{width:100%;min-height:84px;resize:vertical;padding:12px 16px;border:2px solid var(--plum);border-radius:16px;background:#fff;font:15px/1.4 Archivo;color:var(--plum)}
+.custom textarea:focus-visible{outline:2px solid var(--plum);outline-offset:2px}
 .row .nm b{color:var(--plum);display:block}
 .row .nm small{opacity:.8}
 .row select{appearance:none;-webkit-appearance:none;font:600 14px/1 Archivo;color:var(--plum);background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5l5 5 5-5' fill='none' stroke='%23340a3d' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat right 14px center/11px 8px;border:2px solid var(--plum);border-radius:999px;padding:11px 38px 11px 18px;min-width:116px;cursor:pointer}
@@ -112,6 +117,7 @@ section{padding:110px 0}
 .summary h3{font-stretch:125%;font-weight:800;text-transform:uppercase;font-size:24px;color:var(--lav-ink);margin-bottom:16px}
 .summary ul{list-style:none;min-height:60px;margin-bottom:20px}
 .summary li{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(255,243,233,.15);font-size:15px}
+.summary li span:first-child{overflow-wrap:anywhere;padding-right:12px}
 .summary .empty{opacity:.6;font-size:15px}
 .total{display:flex;justify-content:space-between;align-items:baseline;margin:8px 0 24px}
 .total strong{font-stretch:125%;font-weight:800;font-size:40px;color:var(--butter)}
@@ -271,7 +277,7 @@ footer .spill{position:absolute;right:4%;bottom:90px;width:150px;rotate:-6deg}
             <input id="dt" type="date">
             <button class="btn btn-lav" type="submit">Send order to Maria <svg class="arr" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
           </form>
-          <p class="fine">Opens a text message with your order. Nothing is charged online.</p>
+          <p class="fine">Opens an email with your order. Nothing is charged online.</p>
         </aside>
       </div>
     </div>
@@ -303,8 +309,7 @@ footer .spill{position:absolute;right:4%;bottom:90px;width:150px;rotate:-6deg}
       </div>
       <div>
         <h4>Order</h4>
-        <a href="sms:+15555555555" data-phone>Text (555) 555-5555</a>
-        <a href="mailto:hello@mariaspasteles.com">hello@mariaspasteles.com</a>
+        <a href="mailto:mariaspasteles88@gmail.com">mariaspasteles88@gmail.com</a>
       </div>
       <div>
         <h4>Pickup</h4>
@@ -318,7 +323,7 @@ footer .spill{position:absolute;right:4%;bottom:90px;width:150px;rotate:-6deg}
 </footer>
 
 <script>
-const PHONE = '+15555555555';
+const EMAIL = 'mariaspasteles88@gmail.com';
 const MENU = [
   {id:'pg', name:'Pasteles · Guineo', note:'per dozen', price:40, opts:['Chicken','Pork']},
   {id:'py', name:'Pasteles · Yuca', note:'per dozen', price:45, opts:['Chicken','Pork']},
@@ -334,7 +339,14 @@ b.innerHTML = MENU.map(m => `
     <div class="nm"><b>${m.name}</b><small>$${m.price} ${m.note}</small></div>
     ${m.opts ? `<select data-id="${m.id}" aria-label="Filling for ${m.name}">${m.opts.map(o=>`<option>${o}</option>`).join('')}</select>` : '<span></span>'}
     <div class="step"><button type="button" data-id="${m.id}" data-d="-1" aria-label="Remove one">−</button><output id="q-${m.id}">0</output><button type="button" data-id="${m.id}" data-d="1" aria-label="Add one">+</button></div>
-  </div>`).join('');
+  </div>`).join('') + `
+  <div class="row custom">
+    <label for="custom">Custom request</label>
+    <small>Want something specific? Tell Maria and she'll confirm the price.</small>
+    <textarea id="custom" maxlength="500" placeholder="e.g. 2 dozen pasteles, half chicken, half pork, extra spicy"></textarea>
+  </div>`;
+const custom = document.getElementById('custom');
+custom.addEventListener('input', render);
 MENU.forEach(m => { qty[m.id] = 0; fill[m.id] = m.opts ? m.opts[0] : ''; });
 b.addEventListener('click', e => {
   const t = e.target.closest('button[data-d]'); if (!t) return;
@@ -345,15 +357,17 @@ function lines(){ return MENU.filter(m => qty[m.id]).map(m => ({ txt:`${qty[m.id
 function render(){
   MENU.forEach(m => document.getElementById('q-'+m.id).textContent = qty[m.id]);
   const L = lines(), ul = document.getElementById('lines');
-  ul.innerHTML = L.length ? L.map(l => `<li><span>${l.txt}</span><span>$${l.amt}</span></li>`).join('') : '<li class="empty">Nothing yet. Add a dozen or two!</li>';
+  const c = custom.value.trim(), esc = t => t.replace(/[&<>"]/g, x => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[x]));
+  const items = L.map(l => `<li><span>${l.txt}</span><span>$${l.amt}</span></li>`).join('') + (c ? `<li><span>Custom: ${esc(c)}</span><span>TBD</span></li>` : '');
+  ul.innerHTML = items || '<li class="empty">Nothing yet. Add a dozen or two!</li>';
   document.getElementById('total').textContent = '$' + L.reduce((s,l) => s + l.amt, 0);
 }
 document.getElementById('send').addEventListener('submit', e => {
   e.preventDefault();
-  const L = lines(); if (!L.length) { alert('Add at least one item to your order.'); return; }
+  const L = lines(), c = custom.value.trim(); if (!L.length && !c) { alert('Add at least one item or a custom request.'); return; }
   const total = L.reduce((s,l) => s + l.amt, 0);
-  const msg = `Hi Maria! New order from ${nm.value} (${ph.value}):\n` + L.map(l => '• ' + l.txt).join('\n') + `\nTotal: $${total}` + (dt.value ? `\nPickup: ${dt.value}` : '');
-  location.href = `sms:${PHONE}?&body=${encodeURIComponent(msg)}`;
+  const msg = `Hi Maria! New order from ${nm.value} (${ph.value}):\n` + L.map(l => '• ' + l.txt).join('\n') + (c ? `\nCustom request: ${c}` : '') + `\nTotal: $${total}` + (c ? ' + custom' : '') + (dt.value ? `\nPickup: ${dt.value}` : '');
+  location.href = `mailto:${EMAIL}?subject=${encodeURIComponent('New order from ' + nm.value)}&body=${encodeURIComponent(msg)}`;
 });
 document.getElementById('yr').textContent = new Date().getFullYear();
 const io = new IntersectionObserver(es => es.forEach(x => { if (x.isIntersecting) { x.target.classList.add('in'); io.unobserve(x.target); } }), {threshold:.15});
